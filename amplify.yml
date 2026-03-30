@@ -1,0 +1,33 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - rm -rf node_modules
+        - rm -rf .npm
+        - npm install
+    build:
+      commands:
+        - npm run build
+  artifacts:
+    baseDirectory: build
+    files:
+      - '**/*'
+  cache:
+    paths: []
+```
+
+This tells AWS to:
+- ❌ Delete old cache completely
+- ✅ Run fresh `npm install` (not `npm ci`)
+- ✅ Build from scratch every time
+
+---
+
+## ✅ Step 2 — Update `.env` File
+
+Make sure `E:\RAM\React\ReactPortfolio\.env` contains:
+```
+CI=false
+DISABLE_ESLINT_PLUGIN=true
+GENERATE_SOURCEMAP=false
